@@ -8,6 +8,8 @@ Contains the code used to perform analysis.
 
 `main_runner.ipynb` contains most of the experimentation and analysis run.
 
+Library versions used are listed in `requirements.txt` and Python vresion used is Python 3.10.12.
+
 Cassiopeia is cloned following directions here: https://github.com/YosefLab/Cassiopeia/tree/master
 
 Uses and modifies code from the Cassiopeia library.

@@ -26,6 +26,13 @@ def build_matrices(clone_num,prt=1):
         os.mkdir(path)  
     except OSError as error:  
         min_print("directory already exists",prt)
+    codirectory =  "mc_output_trees_" + str(clone_num)
+    path = os.path.join(parent_dir, codirectory)
+    try:
+        os.mkdir(path)
+    except OSError as error:
+        min_print("directory already exists",prt) 
+    mc_output_trees_path = "mc_output_trees_{0}/tree_".format(clone_num)
     output_trees_path = "output_trees_{0}/tree_".format(clone_num)
     newick = ""
     with open(tree_path, 'r') as file:
@@ -73,6 +80,14 @@ def build_matrices(clone_num,prt=1):
             out_path = output_trees_path + str(idx) + ".txt"
             with open(out_path,'w') as file:
                 file.write(tree_labeling)
+        for idx,tree in enumerate(min_comigration_trees):
+            tree_labeling = ""
+            # produces a preorder DFS of the tree 
+            for node in tree.depth_first_traverse_nodes(source=tree.root,postorder=False):
+                tree_labeling += node + ":" + tree.get_attribute(node,'t_label') + "\n"
+            out_path = mc_output_trees_path + str(idx) + ".txt"
+            with open(out_path,'w') as file:
+                file.write(tree_labeling)
         # to read it back in, take the tree, make a list of copies, then for each line set_attribute the node
         return transition_matrix,fc_matrix
 
@@ -92,6 +107,13 @@ def build_matrices_restricted(clone_num,prt=1):
         os.mkdir(path)  
     except OSError as error:  
         min_print("directory already exists",prt)
+    codirectory =  "mc_output_trees_r_" + str(clone_num)
+    path = os.path.join(parent_dir, codirectory)
+    try:
+        os.mkdir(path)
+    except OSError as error:
+        min_print("directory already exists",prt) 
+    mc_output_trees_path = "mc_output_trees_r_{0}/tree_".format(clone_num)
     output_trees_path = "output_trees_r_{0}/tree_".format(clone_num)
     newick = ""
     with open(tree_path, 'r') as file:
@@ -130,6 +152,14 @@ def build_matrices_restricted(clone_num,prt=1):
             out_path = output_trees_path + str(idx) + ".txt"
             with open(out_path,'w') as file:
                 file.write(tree_labeling)
+        for idx,tree in enumerate(min_comigration_trees):
+            tree_labeling = ""
+            # produces a preorder DFS of the tree 
+            for node in tree.depth_first_traverse_nodes(source=tree.root,postorder=False):
+                tree_labeling += node + ":" + tree.get_attribute(node,'t_label') + "\n"
+            out_path = mc_output_trees_path + str(idx) + ".txt"
+            with open(out_path,'w') as file:
+                file.write(tree_labeling)
         # to read it back in, take the tree, make a list of copies, then for each line set_attribute the node
         return transition_matrix
 
@@ -149,6 +179,13 @@ def build_matrices_sankoff(clone_num,prt=1):
         os.mkdir(path)  
     except OSError as error:  
         min_print("directory already exists",prt)
+    codirectory =  "mc_output_trees_s_" + str(clone_num)
+    path = os.path.join(parent_dir, codirectory)
+    try:
+        os.mkdir(path)
+    except OSError as error:
+        min_print("directory already exists",prt) 
+    mc_output_trees_path = "mc_output_trees_s_{0}/tree_".format(clone_num)
     output_trees_path = "output_trees_s_{0}/tree_".format(clone_num)
     newick = ""
     with open(tree_path, 'r') as file:
@@ -186,6 +223,14 @@ def build_matrices_sankoff(clone_num,prt=1):
             for node in tree.depth_first_traverse_nodes(source=tree.root,postorder=False):
                 tree_labeling += node + ":" + tree.get_attribute(node,'t_label') + "\n"
             out_path = output_trees_path + str(idx) + ".txt"
+            with open(out_path,'w') as file:
+                file.write(tree_labeling)
+        for idx,tree in enumerate(min_comigration_trees):
+            tree_labeling = ""
+            # produces a preorder DFS of the tree 
+            for node in tree.depth_first_traverse_nodes(source=tree.root,postorder=False):
+                tree_labeling += node + ":" + tree.get_attribute(node,'t_label') + "\n"
+            out_path = mc_output_trees_path + str(idx) + ".txt"
             with open(out_path,'w') as file:
                 file.write(tree_labeling)
         # to read it back in, take the tree, make a list of copies, then for each line set_attribute the node
@@ -244,11 +289,11 @@ def number_of_nodes(clone_num,prt=1):
         cas_tree.cell_meta = pd.DataFrame(meta_data,columns=['tissue'],index=leaves)
         print("Nodes",len(cas_tree.nodes))
         return len(cas_tree.nodes)
-clones = [64,43,21]
-node_len = []
-for c in clones:
-    print("Clone",c)
-    node_len.append(number_of_nodes(c,0))
-print("Node mean",sum(node_len)/len(node_len))
-print("Node min",min(node_len))
-print("Node max", max(node_len))
+# clones = [64,43,21]
+# node_len = []
+# for c in clones:
+#     print("Clone",c)
+#     node_len.append(number_of_nodes(c,0))
+# print("Node mean",sum(node_len)/len(node_len))
+# print("Node min",min(node_len))
+# print("Node max", max(node_len))

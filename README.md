@@ -6,6 +6,8 @@ Contains the code used to perform analysis.
 
 `build_matrices.py` provides functions that build the tissue transition probability matrices.
 
+`venn_diagram.py` provides the K-L Divergence implementation and venn diagram implementation.
+
 `main_runner.ipynb` contains most of the experimentation and analysis run.
 
 Library versions used are listed in `requirements.txt` and Python vresion used is Python 3.10.12.
